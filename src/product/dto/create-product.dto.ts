@@ -1,4 +1,11 @@
-import { IsNumber, IsOptional, IsString } from 'class-validator';
+import { Type } from 'class-transformer';
+import {
+  IsArray,
+  IsNumber,
+  IsOptional,
+  IsString,
+  ValidateNested,
+} from 'class-validator';
 
 class ProductCharacteristicDto {
   @IsString()
@@ -40,5 +47,8 @@ export class CreateProductDto {
   @IsString({ each: true })
   tags: string;
 
+  @IsArray()
+  @ValidateNested()
+  @Type(() => ProductCharacteristicDto)
   characteristics: ProductCharacteristicDto[];
 }

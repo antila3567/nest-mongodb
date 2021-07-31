@@ -1,3 +1,4 @@
+import { IdValidationPipe } from './../pipes/id-validation.pipe';
 import { ReviewService } from './review.service';
 import { CreateReviewDto } from './dto/create-review.dto';
 import {
@@ -24,23 +25,23 @@ export class ReviewController {
   @UsePipes(new ValidationPipe())
   @Post('create')
   async create(@Body() dto: CreateReviewDto) {
-	return this.reviewService.create(dto);
+    return this.reviewService.create(dto);
   }
 
   @Delete(':id')
-  async delete(@Param('id') id: string) {
-	const deleteDoc = await this.reviewService.delete(id);
-	if (!deleteDoc) {
-		throw new HttpException(REVIEW_NOT_FOUND, HttpStatus.NOT_FOUND);
-	}
+  async delete(@Param('id', IdValidationPipe) id: string) {
+    const deleteDoc = await this.reviewService.delete(id);
+    if (!deleteDoc) {
+      throw new HttpException(REVIEW_NOT_FOUND, HttpStatus.NOT_FOUND);
+    }
   }
 
   @UseGuards(JwtAuthGuard)
   @Get('byProduct/:productId')
   async getByProduct(
-	@Param('productId') productId: string,
-	@UserEmail() email: string,
+    @Param('productId', IdValidationPipe) productId: string,
+    @UserEmail() email: string,
   ) {
-	return this.reviewService.findByProductId(productId);
+    return this.reviewService.findByProductId(productId);
   }
 }
