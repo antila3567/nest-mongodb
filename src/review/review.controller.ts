@@ -1,3 +1,4 @@
+import { TelegramService } from './../telegram/telegram.service';
 import { IdValidationPipe } from './../pipes/id-validation.pipe';
 import { ReviewService } from './review.service';
 import { CreateReviewDto } from './dto/create-review.dto';
@@ -20,12 +21,27 @@ import { UserEmail } from 'src/decorators/user-email.decorator';
 
 @Controller('review')
 export class ReviewController {
-  constructor(private readonly reviewService: ReviewService) {}
+  constructor(
+    private readonly reviewService: ReviewService,
+    private readonly telegramService: TelegramService,
+  ) {}
 
   @UsePipes(new ValidationPipe())
   @Post('create')
   async create(@Body() dto: CreateReviewDto) {
     return this.reviewService.create(dto);
+  }
+
+  @UsePipes(new ValidationPipe())
+  @Post('notify')
+  async notify(@Body() dto: CreateReviewDto) {
+    const message =
+      `name: ${dto.name}\n` +
+      `title: ${dto.title}\n` +
+      `rating: ${dto.rating}\n` +
+      `id: ${dto.productId}`;
+
+    return this.telegramService.sendMessage(message);
   }
 
   @Delete(':id')
