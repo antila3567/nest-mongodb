@@ -5,22 +5,20 @@ export const getMongoConfig = async (
   configService: ConfigService,
 ): Promise<TypegooseModuleOptions> => {
   return {
-	uri: getMongoString(configService),
-	...getMongoOptions(),
+    uri: getMongoString(configService),
+    ...getMongoOptions(),
   };
 };
 
 const getMongoString = (configService: ConfigService) =>
-  'mongodb://' +
+  'mongodb+srv://' +
   configService.get('MONGO_LOGIN') +
   ':' +
   configService.get('MONGO_PASSWORD') +
   '@' +
   configService.get('MONGO_HOST') +
-  ':' +
-  configService.get('MONGO_PORT') +
-  '/' +
-  configService.get('MONGO_AUTHDATABASE');
+  '?' +
+  configService.get('MONGO_PARAMS');
 
 const getMongoOptions = () => ({
   useNewUrlParser: true,
