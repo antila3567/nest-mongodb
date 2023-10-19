@@ -10,6 +10,7 @@ import { FilesModule } from './files/files.module';
 import { TelegramModule } from './telegram/telegram.module';
 import { getTelegramConfig } from './configs/telegram.config';
 import { PostsModule } from './Posts/posts.module';
+import { ImageUploaderModule } from './image-uploader/image-uploader.module';
 
 @Module({
   imports: [
@@ -25,11 +26,13 @@ import { PostsModule } from './Posts/posts.module';
     ReviewModule,
     FilesModule,
     PostsModule,
+    ImageUploaderModule,
     TelegramModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: getTelegramConfig,
     }),
+    ImageUploaderModule,
   ],
 })
 export class AppModule {}

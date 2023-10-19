@@ -16,6 +16,9 @@ export class PostsModel extends TimeStamps {
   @prop()
   country: string;
 
+  @prop({required:false})
+  image: string | null;
+
   @prop({ type: () => [String] })
   tags: string[];
 }

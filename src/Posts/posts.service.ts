@@ -9,7 +9,7 @@ import { ExecSyncOptions } from 'child_process';
 @Injectable()
 export class PostsService {
   constructor(
-    @InjectModel(PostsModel)
+  @InjectModel(PostsModel)
     private readonly postModel: ModelType<PostsModel>,
   ) {}
   async create(dto: CreatePostDto) {
