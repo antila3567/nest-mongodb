@@ -8,16 +8,16 @@ import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
 
 @Module({
-	controllers: [ ImageUploaderController ],
-	providers: [ ImageUploaderService, ConfigService, {
-    provide: APP_GUARD,
-    useClass: ThrottlerGuard
-  } ],
+	controllers: [ImageUploaderController],
+	providers: [ImageUploaderService, ConfigService, {
+		provide: APP_GUARD,
+		useClass: ThrottlerGuard
+	}],
 	imports: [
 		ThrottlerModule.forRoot([
 			{
 				ttl: 60000,
-				limit: 3
+				limit: 30
 			}
 		]),
 		TypegooseModule.forFeature([
@@ -30,4 +30,4 @@ import { APP_GUARD } from '@nestjs/core';
 		])
 	]
 })
-export class ImageUploaderModule {}
+export class ImageUploaderModule { }

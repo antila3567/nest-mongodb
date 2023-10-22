@@ -10,24 +10,24 @@ import { getJWTConfig } from 'src/configs/jwt.config';
 import { PassportModule } from '@nestjs/passport';
 
 @Module({
-  controllers: [AuthController],
-  imports: [
-	TypegooseModule.forFeature([
-		{
-		typegooseClass: UserModel,
-		schemaOptions: {
-			collection: 'User',
-		},
-		},
-	]),
-	ConfigModule,
-	JwtModule.registerAsync({
-		imports: [ConfigModule],
-		inject: [ConfigService],
-		useFactory: getJWTConfig,
-	}),
-	PassportModule,
-  ],
-  providers: [AuthService, JwtStrategy],
+	controllers: [AuthController],
+	imports: [
+		TypegooseModule.forFeature([
+			{
+				typegooseClass: UserModel,
+				schemaOptions: {
+					collection: 'User',
+				},
+			},
+		]),
+		ConfigModule,
+		JwtModule.registerAsync({
+			imports: [ConfigModule],
+			inject: [ConfigService],
+			useFactory: getJWTConfig,
+		}),
+		PassportModule,
+	],
+	providers: [AuthService, JwtStrategy],
 })
-export class AuthModule {}
+export class AuthModule { }

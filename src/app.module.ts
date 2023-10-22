@@ -11,6 +11,7 @@ import { TelegramModule } from './telegram/telegram.module';
 import { getTelegramConfig } from './configs/telegram.config';
 import { PostsModule } from './Posts/posts.module';
 import { ImageUploaderModule } from './image-uploader/image-uploader.module';
+import { MoviesModule } from './movies/movies.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { ImageUploaderModule } from './image-uploader/image-uploader.module';
     ReviewModule,
     FilesModule,
     PostsModule,
+    MoviesModule,
     ImageUploaderModule,
     TelegramModule.forRootAsync({
       imports: [ConfigModule],
@@ -33,6 +35,7 @@ import { ImageUploaderModule } from './image-uploader/image-uploader.module';
       useFactory: getTelegramConfig,
     }),
     ImageUploaderModule,
+    MoviesModule,
   ],
 })
-export class AppModule {}
+export class AppModule { }
